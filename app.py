@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
-from sklearn.model_selection import train_test_split
 
 st.set_page_config(page_title="CardioInsight AI", layout="wide")
 
@@ -30,12 +29,8 @@ def create_pdf(probability, ai_insight):
     return buffer
 
 
-#Load model and derive X_train from CSV for SHAP background
+#Load model
 model = joblib.load("models/heart_model.pkl")
-_df = pd.read_csv("data/heart.csv")
-X_train, _ = train_test_split(
-    _df.drop("condition", axis=1), test_size=0.2, random_state=42
-)
 
 # ── Header ──────────────────────────────────────────────────────────────────
 st.title("CardioInsight AI")
@@ -63,7 +58,7 @@ thal      = st.sidebar.slider("Thal", 0, 3, 1)
 if st.button("Predict Risk"):
     st.session_state.prediction_done = False
 
-    explainer = shap.LinearExplainer(model, X_train)
+    explainer = shap.Explainer(model)
 
     input_data = pd.DataFrame([{
         "age": age, "sex": sex, "cp": cp, "trestbps": trestbps,
@@ -141,11 +136,9 @@ contribute to elevated cardiac risk.
 
     # ── SHAP Explainability ──────────────────────────────────────────────────
     st.subheader("Prediction Explainability")
-
     fig, ax = plt.subplots()
     shap.plots.waterfall(shap_values[0], show=False)
     st.pyplot(fig)
-
     st.divider()
 
 # ── PDF Report ───────────────────────────────────────────────────────────────

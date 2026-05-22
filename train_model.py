@@ -65,6 +65,6 @@ for name, model in models.items():
 
 #Save best model and training data (needed for SHAP background)
 joblib.dump(best_model, "models/heart_model.pkl")
-joblib.dump(X_train, "models/X_train.pkl")
+# joblib.dump(X_train, "models/X_train.pkl")
 
 print("\nBest model saved successfully")
