@@ -58,8 +58,6 @@ thal      = st.sidebar.slider("Thal", 0, 3, 1)
 if st.button("Predict Risk"):
     st.session_state.prediction_done = False
 
-    explainer = shap.Explainer(model)
-
     input_data = pd.DataFrame([{
         "age": age, "sex": sex, "cp": cp, "trestbps": trestbps,
         "chol": chol, "fbs": fbs, "restecg": restecg, "thalach": thalach,
@@ -68,6 +66,8 @@ if st.button("Predict Risk"):
 
     prediction  = model.predict(input_data)[0]
     probability = model.predict_proba(input_data)[0][1]
+
+    explainer   = shap.LinearExplainer(model, masker=shap.maskers.Independent(input_data))
     shap_values = explainer(input_data)
 
     st.session_state.probability      = probability
