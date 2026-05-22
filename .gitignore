@@ -5,4 +5,14 @@ __pycache__/
 .DS_Store
 models/X_train.pkl
 cardio_report.pdf
+
+# Environment & secrets — never commit these
 .env
+.env.*
+*.env
+secrets.json
+secrets.yaml
+secrets.toml
+*.key
+*.pem
+.streamlit/secrets.toml
