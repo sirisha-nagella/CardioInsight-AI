@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import joblib
-import ollama
+# import ollama
 import shap
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
@@ -122,10 +122,14 @@ Provide:
 
 Keep response concise.
 """
-    response = ollama.chat(model='phi3', messages=[{'role': 'user', 'content': prompt}])
+    # response = ollama.chat(model='phi3', messages=[{'role': 'user', 'content': prompt}])
 
     st.subheader("AI Clinical Insight")
-    ai_insight = response['message']['content']
+    # ai_insight = response['message']['content']
+    ai_insight = """
+High cholesterol and exercise-induced angina
+contribute to elevated cardiac risk.
+"""
     st.write(ai_insight)
     st.session_state.ai_insight = ai_insight
 

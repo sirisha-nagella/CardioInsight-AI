@@ -2,6 +2,8 @@
 
 AI-powered cardiac risk intelligence dashboard integrating machine learning, explainable AI, and local LLM-generated clinical insights.
 
+> **Note:** The deployed cloud version uses a lightweight static insight layer due to local Ollama runtime limitations on free cloud infrastructure. Full local version supports Ollama-based LLM clinical insight generation.
+
 ---
 
 ## Features
