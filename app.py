@@ -125,10 +125,21 @@ Keep response concise.
 
     st.subheader("AI Clinical Insight")
     # ai_insight = response['message']['content']
-    ai_insight = """
-High cholesterol and exercise-induced angina
-contribute to elevated cardiac risk.
-"""
+    insights = []
+
+    if chol > 240:
+        insights.append("High cholesterol contributes to increased cardiac risk.")
+
+    if exang == 1:
+        insights.append("Exercise-induced angina may indicate reduced cardiac function.")
+
+    if trestbps > 140:
+        insights.append("Elevated blood pressure is associated with cardiovascular strain.")
+
+    if probability > 0.7:
+        insights.append("Overall prediction indicates elevated cardiac disease risk.")
+
+    ai_insight = " ".join(insights) if insights else "No major risk indicators detected based on current inputs."
     st.write(ai_insight)
     st.session_state.ai_insight = ai_insight
 
